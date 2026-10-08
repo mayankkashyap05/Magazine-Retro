@@ -6,7 +6,7 @@
 export const ISSUE = {
   no: '01',
   vol: '01',
-  date: 'OCTOBER 2026',
+  date: 'SEPTEMBER 2026',
   name: 'THE FIRST ISSUE',
   tagline: 'Technology. People. Ideas.',
 }

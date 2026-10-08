@@ -53,6 +53,6 @@ src/
 ## Colophon
 
 Set in Fraunces, Archivo & IBM Plex Mono.
-Issue 01 / October 2026 — doc. no. EN-01-2026.
+Issue 01 / September 2026 — doc. no. EN-01-2026.
 
 *Technology is not just about machines. It is about people.*
