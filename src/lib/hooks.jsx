@@ -1,5 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 
+/* Print edition: the PDF renderer sets window.__ENIAC_PRINT__ before mounting.
+   In that mode every reveal is shown at once and counters resolve to their
+   final value, since scroll and animation frames never run during printing. */
+export function isPrintEdition() {
+  return typeof window !== 'undefined' && window.__ENIAC_PRINT__ === true
+}
+
 /* Does the visitor prefer reduced motion? */
 export function prefersReducedMotion() {
   return (
@@ -11,10 +18,10 @@ export function prefersReducedMotion() {
 /* One-shot in-view flag */
 export function useInView(options = {}) {
   const ref = useRef(null)
-  const [inView, setInView] = useState(false)
+  const [inView, setInView] = useState(() => isPrintEdition())
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || isPrintEdition()) return
     if (!('IntersectionObserver' in window)) {
       setInView(true)
       return
@@ -47,12 +54,12 @@ export function usePageMeta(title, description) {
 
 /* Count-up that starts when scrolled into view */
 export function useCountUp(to, { duration = 1500, started }) {
-  const [val, setVal] = useState(0)
+  const [val, setVal] = useState(() => (isPrintEdition() ? to : 0))
   const done = useRef(false)
   useEffect(() => {
     if (!started || done.current) return
     done.current = true
-    if (prefersReducedMotion()) {
+    if (prefersReducedMotion() || isPrintEdition()) {
       setVal(to)
       return
     }

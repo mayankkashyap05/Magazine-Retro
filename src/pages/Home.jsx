@@ -7,12 +7,10 @@ import heroEniac from '../assets/img/hero-eniac.jpg'
 import eniacTubes from '../assets/img/eniac-tubes.jpg'
 import aiYoung from '../assets/img/ai-young.jpg'
 
-export default function Home() {
-  usePageMeta(
-    'ENIAC — Technology. People. Ideas.',
-    'ENIAC is a digital magazine exploring computing, artificial intelligence, cybersecurity and the human relationship with technology.'
-  )
-
+/* The front page is split so the print edition can use the hero as its cover
+   and the remaining front-page sections as continuation pages. On screen the
+   two halves render exactly as the original single component did. */
+export function HomeHero() {
   return (
     <>
       {/* ================= HERO ================= */}
@@ -67,6 +65,13 @@ export default function Home() {
         </Reveal>
       </section>
 
+    </>
+  )
+}
+
+export function HomeSections() {
+  return (
+    <>
       {/* ================= FROM THE EDITOR ================= */}
       <section className="home-sec" aria-labelledby="ed-note">
         <div className="page">
@@ -420,6 +425,20 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+    </>
+  )
+}
+
+export default function Home() {
+  usePageMeta(
+    'ENIAC — Technology. People. Ideas.',
+    'ENIAC is a digital magazine exploring computing, artificial intelligence, cybersecurity and the human relationship with technology.'
+  )
+
+  return (
+    <>
+      <HomeHero />
+      <HomeSections />
     </>
   )
 }

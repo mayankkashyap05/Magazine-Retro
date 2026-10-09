@@ -1,0 +1,292 @@
+/* ============================================================
+   ENIAC PRINT EDITION — A4 layer.
+   Loaded only by print.html; never part of the website bundle.
+   Screen styles from src/styles still provide the design system;
+   this file removes web-only behaviour and sets print pagination.
+   ============================================================ */
+
+html,
+body,
+.print-edition {
+  background: var(--paper);
+}
+
+.print-edition {
+  color: var(--ink);
+}
+
+/* the web layout pads each .page for the browser gutter; print uses the sheet margin */
+.print-edition .page {
+  max-width: none;
+  padding-inline: 0;
+}
+
+/* scroll-triggered reveals and looping motion have no meaning on paper */
+.print-edition .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+.print-edition *,
+.print-edition *::before,
+.print-edition *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* web chrome that must not reach the page */
+.print-edition .progress,
+.print-edition .next-story,
+.print-edition .skip-link,
+.print-edition .overlay,
+.print-edition .menu-btn,
+.print-edition .wm-link .wm-sub,
+.print-edition .ticker__item--dup {
+  display: none !important;
+}
+
+/* the homepage index duplicates the dedicated contents page */
+.print-edition [aria-labelledby='contents'] {
+  display: none !important;
+}
+
+/* marquee: show one static run of items, spread across the measure */
+.print-edition .ticker__track {
+  width: 100%;
+  justify-content: space-between;
+}
+.print-edition .ticker__track > span[aria-hidden='true'] {
+  display: none;
+}
+
+/* sections: each one starts on its own sheet (named pages do the rest) */
+.print-edition .seg {
+  position: relative;
+}
+
+/* keep figures, statements and short lists whole */
+.print-edition figure,
+.print-edition .figure,
+.print-edition svg,
+.print-edition blockquote,
+.print-edition .irow,
+.print-edition .triad,
+.print-edition .runway-chips,
+.print-edition .machine__stats li,
+.print-edition .ai-split > *,
+.print-edition .tl-node,
+.print-edition .punch-strip {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.print-edition h1,
+.print-edition h2,
+.print-edition h3,
+.print-edition h4,
+.print-edition .eyebrow,
+.print-edition .mono,
+.print-edition figcaption {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+.print-edition figcaption {
+  break-after: auto;
+  break-before: avoid;
+}
+.print-edition p,
+.print-edition li {
+  orphans: 3;
+  widows: 3;
+}
+
+/* links: keep the visible text; PDF links are internal (#story-0N) */
+.print-edition a {
+  color: inherit;
+}
+
+/* ------------------------------------------------------------
+   Dedicated contents page
+   ------------------------------------------------------------ */
+.pc {
+  display: grid;
+  gap: 9mm;
+}
+.pc__head .eyebrow {
+  margin-bottom: 0;
+}
+.pc__title {
+  font-size: 46pt;
+  line-height: 0.95;
+  margin-top: 5mm;
+}
+.pc__lede {
+  font-family: var(--font-body);
+  font-size: 10.6pt;
+  line-height: 1.5;
+  max-width: 30em;
+  margin: 5mm 0 0;
+  color: var(--ink-soft);
+}
+.pc__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--ink);
+}
+.pc__row {
+  border-bottom: 0.5pt solid var(--line-strong);
+}
+.pc__row a {
+  display: grid;
+  grid-template-columns: 27mm 1fr 14mm;
+  gap: 4mm;
+  align-items: start;
+  padding: 5.2mm 0 5.4mm;
+}
+.pc__no {
+  font-size: 6.6pt;
+  color: var(--accent);
+  padding-top: 1.6mm;
+}
+.pc__cat {
+  display: block;
+  font-size: 6.4pt;
+  color: var(--muted);
+  letter-spacing: 0.16em;
+}
+.pc__title-line {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 560;
+  font-variation-settings: 'opsz' 72;
+  font-size: 17pt;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  margin-top: 1.6mm;
+}
+.pc__dek {
+  display: block;
+  font-size: 8.8pt;
+  line-height: 1.45;
+  color: var(--muted);
+  margin-top: 1.8mm;
+  max-width: 34em;
+}
+.pc__page {
+  font-family: var(--font-display);
+  font-weight: 340;
+  font-style: italic;
+  font-size: 24pt;
+  line-height: 1;
+  text-align: right;
+  color: var(--ink);
+}
+.pc__foot {
+  display: grid;
+  gap: 4mm;
+  margin-top: 6mm;
+}
+.pc__foot .mono {
+  font-size: 6.4pt;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------
+   Colophon
+   ------------------------------------------------------------ */
+.colo {
+  display: grid;
+  gap: 8mm;
+  align-content: start;
+  min-height: 230mm;
+}
+.colo__kicker {
+  font-size: 6.6pt;
+  color: var(--muted);
+  margin: 0;
+}
+.colo__mark {
+  font-family: var(--font-display);
+  font-weight: 650;
+  font-variation-settings: 'opsz' 144;
+  font-size: 110pt;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  margin: 8mm 0 0;
+}
+.colo__dot {
+  color: var(--accent);
+}
+.colo__tag {
+  font-size: 22pt;
+  margin: 0;
+  color: var(--ink-soft);
+}
+.colo__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8mm;
+  border-top: 1px solid var(--ink);
+  padding-top: 5mm;
+  font-size: 9pt;
+  line-height: 1.5;
+}
+.colo__grid h3 {
+  font-size: 6.6pt;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 3mm;
+}
+.colo__grid p {
+  margin: 0 0 3mm;
+}
+.colo__small {
+  font-size: 6.6pt;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.colo__quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 340;
+  font-size: 12pt !important;
+  line-height: 1.3 !important;
+  color: var(--accent-deep);
+}
+.colo__end {
+  margin-top: auto;
+  display: grid;
+  gap: 4mm;
+  border-top: 1px solid var(--line-strong);
+  padding-top: 5mm;
+}
+.colo__end .mono {
+  font-size: 6.4pt;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------
+   Figures: photographs keep their own crop but never exceed a sheet.
+   Landscape plates keep their native aspect; tall portraits are
+   centred and cropped (object-fit) instead of stretched.
+   ------------------------------------------------------------ */
+.print-edition .figure__frame {
+  max-height: 118mm;
+  overflow: hidden;
+}
+.print-edition .figure__frame img {
+  width: 100%;
+  height: auto;
+  max-height: 118mm;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+/* keep the cyber "stop · think · click" band whole (no orphaned headline on a sheet) */
+.print-edition [aria-label='Stop think click'] {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}

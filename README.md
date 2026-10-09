@@ -38,6 +38,16 @@ npm run build    # production build
 npm run preview  # serve the production build
 ```
 
+## Print edition (A4 PDF)
+
+```bash
+npm run pdf     # builds, then writes output/ENIAC-Complete-Edition.pdf
+npm run pdf:qa  # structural checks (needs: pip install pymupdf)
+```
+
+Requires Google Chrome or Microsoft Edge (set `CHROME_PATH` if Playwright cannot find one).
+See `docs/PRINT-EDITION.md` for the pipeline and `docs/PRINT-QA.md` for the QA report.
+
 ## Structure
 
 ```
@@ -48,6 +58,8 @@ src/
   pages/                  # Home + one page per story
   styles/                 # tokens, base, components, home, stories
   assets/img/             # curated duotone editorial imagery
+  print/                  # A4 print edition (print.html entry, export pipeline support)
+scripts/                  # export-pdf.mjs (PDF pipeline), qa-pdf.py (PDF checks)
 ```
 
 ## Colophon
